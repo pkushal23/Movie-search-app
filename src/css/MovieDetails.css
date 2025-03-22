@@ -6,13 +6,11 @@
     width: 100%;
 }
 
-/* Main container adapts to screen size */
 .movie-container {
     display: flex;
-    flex-direction: row; /* Side-by-side layout by default */
+    flex-direction: row; /* Ensures side-by-side layout */
     align-items: flex-start;
-    justify-content: space-between;
-    max-width: 90vw; /* Flexible width */
+    max-width: 900px;
     width: 100%;
     gap: 20px;
     background: #222;
@@ -21,99 +19,72 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* 🎥 Movie Poster */
+/* ✅ Ensure poster stays on the left */
 .movie-poster {
-    width: 30%; /* Flexible width */
-    max-width: 300px;
+    width: 300px;
+    max-width: 100%;
     border-radius: 10px;
-    flex-shrink: 0; /* Prevents shrinking */
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
-/* 📝 Movie Info Section */
+/* ✅ Ensure movie details are on the right */
 .movie-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     color: white;
-    min-width: 0; /* Prevents layout breaking */
 }
 
-/* ⭐ Movie Title */
-.movie-info h1 {
-    font-size: clamp(20px, 4vw, 32px); /* Responsive text size */
-    margin-bottom: 10px;
-}
-
-/* 📝 Overview & Details */
-.movie-info p {
-    font-size: clamp(14px, 2vw, 18px);
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-/* 🎭 Top Cast */
+/* 🎭 Cast Styling */
 .cast-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Wraps if too many cast members */
     gap: 15px;
     margin-top: 15px;
 }
 
 .cast-item {
     text-align: center;
-    width: clamp(80px, 10vw, 100px); /* Adjust width dynamically */
+    width: 100px;
 }
 
 .cast-photo {
-    width: 100%;
-    max-width: 100px;
-    height: auto;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid white;
 }
 
-/* 🖥️ Responsive Adjustments */
-@media (max-width: 1024px) {
-    .movie-container {
-        max-width: 95vw;
-    }
+.character {
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 5px;
 }
 
+/* 📱 Mobile Responsive */
 @media (max-width: 768px) {
     .movie-container {
-        flex-direction: column; /* Stack poster and details */
+        flex-direction: column; /* Stack poster + details */
         align-items: center;
         text-align: center;
-        width: 100%;
     }
 
     .movie-poster {
-        width: 80%; /* Scales down for mobile */
-        max-width: 250px;
+        width: 100%;
+        max-width: 300px;
     }
 
     .movie-info {
         align-items: center;
-        width: 100%;
         padding: 10px;
     }
 
     .cast-list {
         justify-content: center;
     }
-
-    .cast-item {
-        width: 80px;
-    }
-
-    .cast-photo {
-        width: 80px;
-    }
 }
-
-/* 📺 OTT Section */
 .ott-section {
     margin-top: 15px;
 }
@@ -121,18 +92,39 @@
 .ott-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 10px;
 }
 
 .ott-item {
     text-align: center;
-    width: clamp(50px, 8vw, 60px); /* Adjust width dynamically */
 }
 
 .ott-item img {
-    width: 100%;
-    max-width: 50px;
+    width: 50px;
     height: auto;
-    border-radius: 8px;
+    border-radius: 10px;
+}
+
+/* Cast List */
+.cast-list {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.cast-item {
+    text-align: center;
+    max-width: 100px;
+}
+
+.cast-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.character {
+    font-size: 14px;
+    color: #ccc;
 }
