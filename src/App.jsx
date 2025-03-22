@@ -6,6 +6,8 @@ import Favorite from "./pages/favorites";
 import Home from "./pages/home";
 import MovieDetails from "./pages/Moviedetails";
 import SearchResults from "./pages/SearchResults";
+import Auth from "./components/Auth";
+
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <NavBar/>
     <main className="main-content">
       <Routes>
+      <Route path="/login" element={<Auth isLogin={true} />} />
+      <Route path="/signup" element={<Auth isLogin={false} />} />
         <Route path="/" element={<Home/>}/>
         <Route path="/favorites" element={<Favorite />}/>
         <Route path="/movie/:id" element={<MovieDetails />} />
