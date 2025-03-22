@@ -4,6 +4,7 @@ import { MovieProvider } from "./contexts/MovieContext";
 import "./css/App.css";
 import Favorite from "./pages/favorites";
 import Home from "./pages/home";
+import MovieDetails from "./pages/Moviedetails";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/favorites" element={<Favorite />}/>
+        <Route path="/movie/:id" element={<MovieDetails />} />
       </Routes>
     </main>
     </MovieProvider>
