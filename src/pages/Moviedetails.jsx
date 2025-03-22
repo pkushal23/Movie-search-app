@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieDetails, getMovieProviders } from "../services/api";
-import "../css/MovieDetails.css"; // Import CSS for styling
+import { db, auth } from "../services/firebase"; // ✅ Import Firebase
+import { doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import "../css/MovieDetails.css";
 
 const MovieDetails = () => {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [providers, setProviders] = useState([]); // State for OTT providers
+    const [user] = useAuthState(auth); // ✅ Get logged-in user
+    const [isFavorite, setIsFavorite] = useState(false); // ✅ Track favorite status
 
     useEffect(() => {
         async function fetchMovieData() {
@@ -22,12 +27,65 @@ const MovieDetails = () => {
         }
 
         fetchMovieData();
-    }, [id]);
+
+        // ✅ Check if the movie is already in favorites
+        if (user) {
+            checkIfFavorite();
+        }
+    }, [id, user]);
+
+    // ✅ Function to check if the movie is in user's favorites
+    const checkIfFavorite = async () => {
+        if (!user) return;
+
+        const userRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userRef);
+
+        if (userDoc.exists() && userDoc.data().favorites?.some((fav) => fav.id === movie.id)) {
+            setIsFavorite(true);
+        }
+    };
+
+    // ✅ Function to add to favorites
+    const addToFavorites = async () => {
+        if (!user) {
+            alert("Please log in to add favorites!");
+            return;
+        }
+
+        const userRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userRef);
+
+        if (userDoc.exists()) {
+            // If user exists, update favorites array
+            await updateDoc(userRef, {
+                favorites: arrayUnion({
+                    id: movie.id,
+                    title: movie.title,
+                    poster: movie.poster_path,
+                }),
+            });
+        } else {
+            // If user doesn't exist, create document
+            await setDoc(userRef, {
+                favorites: [
+                    {
+                        id: movie.id,
+                        title: movie.title,
+                        poster: movie.poster_path,
+                    },
+                ],
+            });
+        }
+
+        setIsFavorite(true);
+        alert("Added to Favorites!");
+    };
 
     if (!movie) return <h2>Loading...</h2>;
 
     // Extract top 5 cast members
-    const topCast = movie.credits?.cast?.slice(0, 5); 
+    const topCast = movie.credits?.cast?.slice(0, 5);
 
     return (
         <div className="movie-details">
@@ -42,6 +100,11 @@ const MovieDetails = () => {
                     <p><strong>Overview:</strong> {movie.overview}</p>
                     <p><strong>Rating:</strong> ⭐ {movie.vote_average}</p>
                     <p><strong>Release Date:</strong> {movie.release_date}</p>
+
+                    {/* ✅ Favorite Button */}
+                    <button onClick={addToFavorites} disabled={isFavorite} className="favorite-btn">
+                        {isFavorite ? "✔ Added to Favorites" : "❤️ Add to Favorites"}
+                    </button>
 
                     {/* ✅ Display Top Cast */}
                     <h2>Top Cast</h2>
