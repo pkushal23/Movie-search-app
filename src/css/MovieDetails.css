@@ -7,19 +7,18 @@
 
 .movie-container {
     display: flex;
-    align-items: flex-start; /* Align items to the top */
+    align-items: flex-start; 
     max-width: 800px;
-    gap: 20px; /* Add spacing between image and text */
+    gap: 20px; /
 }
 
-/* Ensure image does not overflow and scales properly */
 .moviedetail-poster {
-    width: 300px; /* Default width */
-    max-width: 100%; /* Prevent overflow */
-    border-radius: 10px; /* Optional: Rounded corners */
+    width: 300px; 
+    max-width: 100%; 
+    border-radius: 10px; 
 }
 
-/* Movie Info Section */
+
 .movie-info {
     flex: 1;
     display: flex;
@@ -27,32 +26,32 @@
     justify-content: flex-start;
 }
 
-/* Title Spacing */
+
 .movie-info h1 {
     margin-bottom: 10px;
 }
 
-/* Paragraph Spacing */
+
 .movie-info p {
     margin-bottom: 10px;
     line-height: 1.5;
 }
 
-/* ✅ Make it Responsive for Mobile Devices */
+
 @media (max-width: 768px) {
     .movie-container {
-        flex-direction: column; /* Stack image and text vertically */
-        align-items: center; /* Center items */
-        text-align: center; /* Center text */
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
     }
 
     .moviedetail-poster {
-        width: 100%; /* Make the image full width */
-        max-width: 300px; /* Limit max width */
+        width: 100%; 
+        max-width: 300px; 
     }
 
     .movie-info {
-        align-items: center; /* Center content */
+        align-items: center; 
         padding: 10px;
     }
 }

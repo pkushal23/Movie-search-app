@@ -47,15 +47,31 @@ function Home() {
     return (
         <div className="home">
             <form onSubmit={handleSearch} className="search-form">
-                <input
-                    type="text"
-                    placeholder="Search for movies..."
-                    className="search-input"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button type="submit" className="search-button">Search</button>
-            </form>
+    <input
+        type="text"
+        placeholder="Search for movies..."
+        className="search-input"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+    />
+    <button type="submit" className="search-button">Search</button>
+    <button 
+        type="button" 
+        className="clear-button"
+        onClick={() => {
+            setSearchQuery("");  
+            setLoading(true);
+            setError(null);
+            getPopularMovies()
+                .then(setMovies)
+                .catch(() => setError("Failed to load movies..."))
+                .finally(() => setLoading(false));
+        }}
+    >
+        Clear
+    </button>
+</form>
+
 
             {loading && <p>Loading movies...</p>}
             {error && <p className="error-message">{error}</p>}
@@ -66,7 +82,6 @@ function Home() {
                 <div className="movies-grid">
                     {movies.map((movie) => (
                         <Link to={`/movie/${movie.id}`} key={movie.id}>  
-                            {/* ✅ Wrap MovieCard with Link */}
                             <MovieCard movie={movie} />
                         </Link>
                     ))}
