@@ -1,4 +1,4 @@
-import MovieCard from "../components/MovieCard"; // ✅ Fix import case
+import MovieCard from "../components/MovieCard";
 import { useMovieContext } from "../contexts/MovieContext";
 import "../css/Favorites.css";
 
