@@ -1,0 +1,52 @@
+.search-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button, .clear-button, .back-home-button {
+    padding: 10px 15px;
+    background: #130d0d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-button:hover, .clear-button:hover{
+    background: linear-gradient(45deg, #0f1113, #090b0c);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.movies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+
+@media (max-width: 768px) {
+    .search-form {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .search-input {
+        width: 90%;
+    }
+}

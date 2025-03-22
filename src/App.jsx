@@ -5,6 +5,7 @@ import "./css/App.css";
 import Favorite from "./pages/favorites";
 import Home from "./pages/home";
 import MovieDetails from "./pages/Moviedetails";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/favorites" element={<Favorite />}/>
         <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
     </main>
     </MovieProvider>
