@@ -1,27 +1,27 @@
-const API_KEY = "40f200a13aa0ac20ed2c728650e78324";
+const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 export const getPopularMovies = async () => {
-    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${apiKey}`); // Corrected
     const data = await response.json();
     return data.results;
 };
 
 export const getTopRatedMovies = async () => {
-    const response = await fetch(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}`);
+    const response = await fetch(`${BASE_URL}/movie/top_rated?api_key=${apiKey}`); // Corrected
     const data = await response.json();
     return data.results;
 };
 
 export const searchMovies = async (query) => {
-    const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+    const response = await fetch(`${BASE_URL}/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`); // Corrected
     const data = await response.json();
     return data.results;
 };
 
 export const getMovieDetails = async (movieId) => {
     try {
-        const response = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&append_to_response=credits`);
+        const response = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${apiKey}&append_to_response=credits`); // Corrected
         const data = await response.json();
         return data;
     } catch (error) {
@@ -29,9 +29,9 @@ export const getMovieDetails = async (movieId) => {
         return null;
     }
 };
+
 export const getMovieProviders = async (movieId) => {
-    const response = await fetch(`${BASE_URL}/movie/${movieId}/watch/providers?api_key=${API_KEY}`);
+    const response = await fetch(`${BASE_URL}/movie/${movieId}/watch/providers?api_key=${apiKey}`); // Corrected
     const data = await response.json();
     return data.results; // Contains OTT platform info by country
 };
-
