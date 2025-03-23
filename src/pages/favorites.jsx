@@ -39,10 +39,8 @@ function Favorite() {
                 .data()
                 .favorites.filter((movie) => movie.id !== movieId);
 
-                await updateDoc(userRef, { favorites: updatedFavorites });
-                setFavorites(updatedFavorites);
-                fetchFavorites();
-            
+            await updateDoc(userRef, { favorites: updatedFavorites });
+            setFavorites(updatedFavorites);
         }
     };
 
@@ -58,10 +56,7 @@ function Favorite() {
                 <div className="movies-grid">
                     {favorites.map((movie) => (
                         <div key={movie.id} className="favorite-item">
-                            <MovieCard movie={movie} />
-                            <button className="remove-btn" onClick={() => removeFromFavorites(movie.id)}>
-                                ❌ Remove
-                            </button>
+                            <MovieCard movie={movie} removeFromFavorites={removeFromFavorites} onFavoriteUpdate={setFavorites} />
                         </div>
                     ))}
                 </div>

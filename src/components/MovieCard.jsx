@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { db, auth } from "../services/firebase"; // ✅ Import Firestore & Auth
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import "../css/MovieCard.css";
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, removeFromFavorites, onFavoriteUpdate }) {
     const [user] = useAuthState(auth); // ✅ Get logged-in user
     const [isFavorite, setIsFavorite] = useState(false); // ✅ Track favorite status
 
@@ -14,9 +15,11 @@ function MovieCard({ movie }) {
 
     // ✅ Check if movie is already favorited
     const checkIfFavorite = async () => {
+        if (!user) return;
+
         const userRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userRef);
-        
+
         if (userDoc.exists() && userDoc.data().favorites) {
             setIsFavorite(userDoc.data().favorites.some((fav) => fav.id === movie.id));
         }
@@ -26,13 +29,12 @@ function MovieCard({ movie }) {
     const toggleFavorite = async (e) => {
         e.preventDefault();
         if (!user) {
-            alert("Please log in to save favorites!"); 
+            alert("Please log in to save favorites!");
             return;
         }
 
         const userRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userRef);
-
         let updatedFavorites = [];
 
         if (userDoc.exists()) {
@@ -44,10 +46,12 @@ function MovieCard({ movie }) {
             }
             await updateDoc(userRef, { favorites: updatedFavorites });
         } else {
-            await updateDoc(userRef, { favorites: [movie] });
+            await setDoc(userRef, { favorites: [movie] });
+            updatedFavorites = [movie];
         }
 
         setIsFavorite(!isFavorite); // ✅ Toggle button UI
+        if (onFavoriteUpdate) onFavoriteUpdate(updatedFavorites); // ✅ Notify parent component
     };
 
     return (
@@ -66,6 +70,9 @@ function MovieCard({ movie }) {
             <div className="movie-info">
                 <h3>{movie.title}</h3>
                 <p>{movie.release_date?.split("-")[0]}</p>
+
+                {/* ✅ Only show remove button in favorites page, not home page */}
+                
             </div>
         </div>
     );

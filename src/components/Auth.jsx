@@ -41,7 +41,8 @@ export const AuthProvider = ({ children }) => {
 
   // ✅ Logout function
   const logout = async () => {
-    return signOut(auth);
+    await signOut(auth);
+    window.location.reload();
   };
 
   return (
@@ -50,41 +51,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-// ✅ Login/Signup component (remains unchanged)
-const Auth = ({ isLogin }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { login, signup } = useAuth();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-
-    try {
-      if (isLogin) {
-        await login(email, password);
-      } else {
-        await signup(email, password);
-      }
-      alert("Success!");
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
-  return (
-    <div>
-      <h2>{isLogin ? "Login" : "Sign Up"}</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
-      </form>
-    </div>
-  );
-};
-
-export default Auth;
