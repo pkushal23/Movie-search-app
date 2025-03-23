@@ -9,10 +9,7 @@ import { AuthProvider } from "./components/Auth.jsx";
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-    <AuthProvider>
         <App />
-    </AuthProvider>
     </BrowserRouter>
-    
   </StrictMode>,
 )
