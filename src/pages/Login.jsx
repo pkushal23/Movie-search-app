@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useAuth } from "../components/Auth";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";  // ✅ Import Link
+
+ // ✅ Works fine
+
 
 const Login = () => {
   const { login } = useAuth();
@@ -31,7 +35,7 @@ const Login = () => {
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">Login</button>
       </form>
-      <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+      <p>Don't have an account? <Link to="/signup">Sign Up</Link></p> 
     </div>
   );
 };
