@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { db, auth } from "../services/firebase"; // ✅ Import Firebase
+import { db, auth } from "../services/firebase"; 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import MovieCard from "../components/MovieCard";
 import "../css/Favorites.css";
 
 function Favorite() {
-    const [user] = useAuthState(auth); // ✅ Get logged-in user
-    const [favorites, setFavorites] = useState([]); // ✅ Store user's favorites
+    const [user] = useAuthState(auth); 
+    const [favorites, setFavorites] = useState([]); 
 
     useEffect(() => {
         if (user) {
@@ -15,7 +15,7 @@ function Favorite() {
         }
     }, [user]);
 
-    // ✅ Fetch user favorites from Firestore
+   
     const fetchFavorites = async () => {
         if (!user) return;
 
@@ -27,7 +27,7 @@ function Favorite() {
         }
     };
 
-    // ✅ Remove movie from favorites
+  
     const removeFromFavorites = async (movieId) => {
         if (!user) return;
 

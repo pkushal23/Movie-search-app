@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieDetails, getMovieProviders } from "../services/api";
-import { db, auth } from "../services/firebase"; // ✅ Import Firebase
+import { db, auth } from "../services/firebase";
 import { doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "../css/MovieDetails.css";
@@ -9,18 +9,18 @@ import "../css/MovieDetails.css";
 const MovieDetails = () => {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
-    const [providers, setProviders] = useState([]); // State for OTT providers
-    const [user] = useAuthState(auth); // ✅ Get logged-in user
-    const [isFavorite, setIsFavorite] = useState(false); // ✅ Track favorite status
+    const [providers, setProviders] = useState([]);
+    const [user] = useAuthState(auth); 
+    const [isFavorite, setIsFavorite] = useState(false); 
 
     useEffect(() => {
         async function fetchMovieData() {
             const movieData = await getMovieDetails(id);
             setMovie(movieData);
 
-            // Fetch OTT providers
+          
             const providerData = await getMovieProviders(id);
-            const country = providerData["IN"] || providerData["US"]; // Default to India/US
+            const country = providerData["IN"] || providerData["US"]; 
             if (country?.flatrate) {
                 setProviders(country.flatrate);
             }
@@ -28,13 +28,13 @@ const MovieDetails = () => {
 
         fetchMovieData();
 
-        // ✅ Check if the movie is already in favorites
+       
         if (user) {
             checkIfFavorite();
         }
     }, [id, user]);
 
-    // ✅ Function to check if the movie is in user's favorites
+   
     const checkIfFavorite = async () => {
         if (!user) return;
 
@@ -46,7 +46,7 @@ const MovieDetails = () => {
         }
     };
 
-    // ✅ Function to add to favorites
+
     const addToFavorites = async () => {
         if (!user) {
             alert("Please log in to add favorites!");
@@ -57,7 +57,7 @@ const MovieDetails = () => {
         const userDoc = await getDoc(userRef);
 
         if (userDoc.exists()) {
-            // If user exists, update favorites array
+           
             await updateDoc(userRef, {
                 favorites: arrayUnion({
                     id: movie.id,
@@ -66,7 +66,7 @@ const MovieDetails = () => {
                 }),
             });
         } else {
-            // If user doesn't exist, create document
+        
             await setDoc(userRef, {
                 favorites: [
                     {
@@ -84,12 +84,12 @@ const MovieDetails = () => {
 
     if (!movie) return <h2>Loading...</h2>;
 
-    // Extract top 5 cast members
+
     const topCast = movie.credits?.cast?.slice(0, 5);
 
     return (
         <div className="movie-details">
-            <div className="movie-container">
+            <div className="modal-container">
                 <img 
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
                     alt={movie.title} 

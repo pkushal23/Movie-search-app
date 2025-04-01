@@ -13,7 +13,7 @@
   height: 100%;
 
   display: flex;
-  width: 250px; /* Fixed width */
+  width: 250px;
   max-width: 300px;
   min-height: 400px;
   flex: 1 1 250px;
@@ -24,7 +24,7 @@
 .movie-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Ensures proper alignment */
+  justify-content: center; 
   gap: 20px;
 }
 

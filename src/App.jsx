@@ -1,18 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import { MovieProvider } from "./contexts/MovieContext";
-import { AuthProvider } from "./components/Auth"; // ✅ Wrap with AuthProvider
+import { AuthProvider } from "./components/Auth";
 import "./css/App.css";
 import Favorite from "./pages/favorites";
 import Home from "./pages/home";
 import MovieDetails from "./pages/Moviedetails";
 import SearchResults from "./pages/SearchResults";
-import Login from "./pages/Login"; // ✅ Import new Login page
-import Signup from "./pages/Signup"; // ✅ Import new Signup page
+import Login from "./pages/Login";
+import Signup from "./pages/Signup"; 
 
 function App() {
   return (
-    <AuthProvider> {/* ✅ Wrap app with AuthProvider */}
+    <AuthProvider>
       <MovieProvider>
         <NavBar />
         <main className="main-content">

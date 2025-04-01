@@ -33,5 +33,5 @@ export const getMovieDetails = async (movieId) => {
 export const getMovieProviders = async (movieId) => {
     const response = await fetch(`${BASE_URL}/movie/${movieId}/watch/providers?api_key=${apiKey}`); // Corrected
     const data = await response.json();
-    return data.results; // Contains OTT platform info by country
+    return data.results;
 };
