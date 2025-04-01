@@ -1,0 +1,62 @@
+/* Centering the Card */
+.login-container{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    
+}
+
+/* Card Styling */
+.login-card {
+
+padding: 2rem;
+border-radius: 12px;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+text-align: center;
+width: 300px;
+height: 50vh;
+align-items: center;
+margin-top: 50px;
+}
+
+/* Input Fields */
+.login-card input {
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+border: 1px solid #ccc;
+border-radius: 6px;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* Signup Button */
+.login-card button {
+width: 100%;
+padding: 10px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-size: 16px;
+}
+
+.login-card button:hover {
+background-color: #0056b3;
+}
+
+/* Error Message */
+.error-message {
+color: red;
+font-size: 14px;
+}
+
+/* Login Link */
+.login-card p a {
+color: #007bff;
+text-decoration: none;
+}
+
+.login-card p a:hover {
+text-decoration: underline;
+}

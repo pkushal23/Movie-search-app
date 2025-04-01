@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "../components/Auth";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";  // ✅ Import Link
-
- // ✅ Works fine
+import { Link } from "react-router-dom";  
+import "../css/Login.css"
 
 
 const Login = () => {
@@ -27,7 +26,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login-container">
+      <div className="login-card">
       <h2>Login</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
@@ -36,6 +36,7 @@ const Login = () => {
         <button type="submit">Login</button>
       </form>
       <p>Don't have an account? <Link to="/signup">Sign Up</Link></p> 
+    </div>
     </div>
   );
 };
